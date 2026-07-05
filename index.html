@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Photo Prompt Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="background-gradient"></div>
+
+    <div class="container">
+        <header>
+            <h1>Advanced Photo Prompt Generator 📸</h1>
+            <p>Craft and save the perfect prompt for your AI image generator.</p>
+        </header>
+
+        <div class="main-layout">
+            <div class="form-and-result-column">
+
+                <main class="form-grid">
+                    <div class="input-column">
+                        <div class="input-group">
+                            <label for="subject">
+                                1. Subject
+                                <button class="lock-btn" data-field-id="subject" title="Lock field">🔒</button>
+                            </label>
+                            <input type="text" id="subject" placeholder="e.g., An astronaut"
+                                   value="A majestic lion with a cosmic mane">
+                        </div>
+                        <div class="input-group">
+                            <label for="action">
+                                2. Action / Pose
+                                <button class="lock-btn" data-field-id="action" title="Lock field">🔒</button>
+                            </label>
+                            <input type="text" id="action" placeholder="e.g., floating in space"
+                                   value="gazing at a binary sunset">
+                        </div>
+                        <div class="input-group">
+                            <label for="output-purpose">
+                                3. Output Purpose
+                                <button class="lock-btn" data-field-id="output-purpose" title="Lock field">🔒</button>
+                            </label>
+                            <select id="output-purpose">
+                                <option value="social media post">Social Media Post</option>
+                                <option value="movie poster" selected>Movie Poster</option>
+                                <option value="4k wallpaper">4K Wallpaper</option>
+                                <option value="product advertisement">Product Advertisement</option>
+                                <option value="artistic portrait">Artistic Portrait</option>
+                                <option value="concept art for a video game">Game Concept Art</option>
+                                <option value="architectural visualization">Architectural Viz</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="input-column">
+                        <div class="input-group">
+                            <label for="lighting">
+                                4. Lighting
+                                <button class="lock-btn" data-field-id="lighting" title="Lock field">🔒</button>
+                            </label>
+                            <select id="lighting">
+                                <option value="cinematic lighting" selected>Cinematic</option>
+                                <option value="dramatic lighting">Dramatic</option>
+                                <option value="golden hour">Golden Hour</option>
+                                <option value="blue hour">Blue Hour</option>
+                                <option value="soft natural light">Soft Natural Light</option>
+                                <option value="Rembrandt lighting">Rembrandt Lighting</option>
+                                <option value="neon noir city lights">Neon Noir</option>
+                                <option value="volumetric god rays">Volumetric God Rays</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label for="camera">
+                                5. Camera & Film
+                                <button class="lock-btn" data-field-id="camera" title="Lock field">🔒</button>
+                            </label>
+                            <select id="camera">
+                                <option value="shot on Sony A7 IV, 50mm f/1.8 lens">Sony A7 IV, 50mm f/1.8</option>
+                                <option value="telephoto lens, shallow depth of field" selected>Telephoto Lens, Bokeh</option>
+                                <option value="shot on Leica M11, 35mm f/1.4 lens">Leica M11, 35mm f/1.4</option>
+                                <option value="anamorphic lens, cinematic widescreen">Anamorphic Lens</option>
+                                <option value="shot on IMAX 70mm film">IMAX 70mm Film</option>
+                                <option value="Kodak Portra 400 film stock">Kodak Portra 400</option>
+                                <option value="shot on RED V-Raptor 8K cinema camera">RED V-Raptor 8K</option>
+                                <option value="macro photography, 105mm f/2.8 lens">Macro Photography</option>
+                                <option value="Dutch angle shot">Dutch Angle Shot</option>
+                                <option value="long exposure, light trails">Long Exposure</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label for="rendering">
+                                6. Rendering Style
+                                <button class="lock-btn" data-field-id="rendering" title="Lock field">🔒</button>
+                            </label>
+                            <select id="rendering">
+                                <option value="hyperrealistic photo" selected>Hyperrealistic Photo</option>
+                                <option value="Unreal Engine 5 cinematic render">Unreal Engine 5</option>
+                                <option value="Octane Render, 8k, photorealistic">Octane Render</option>
+                                <option value="V-Ray render, meticulously detailed">V-Ray Render</option>
+                                <option value="masterful oil painting">Oil Painting</option>
+                                <option value="detailed anime key visual">Anime Key Visual</option>
+                                <option value="a gritty, grainy film noir style">Film Noir Style</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="input-column">
+                        <div class="input-group">
+                            <label for="aspect-ratio">
+                                7. Aspect Ratio
+                                <button class="lock-btn" data-field-id="aspect-ratio" title="Lock field">🔒</button>
+                            </label>
+                            <select id="aspect-ratio">
+                                <option value="16:9" selected>16:9 (Widescreen)</option>
+                                <option value="1:1">1:1 (Square)</option>
+                                <option value="9:16">9:16 (Story)</option>
+                                <option value="3:2">3:2 (Photo)</option>
+                                <option value="2.39:1">2.39:1 (Cinemascope)</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label for="negative-prompt">
+                                8. Negative Prompt
+                                <button class="lock-btn" data-field-id="negative-prompt" title="Lock field">🔒</button>
+                            </label>
+                            <input type="text" id="negative-prompt"
+                                   placeholder="e.g., blurry, cartoon, watermark"
+                                   value="blurry, low-quality, text">
+                        </div>
+                        <div class="input-group">
+                            <label for="style-strength">
+                                9. Style Strength:
+                                <span id="style-value">250</span>
+                                <button class="lock-btn" data-field-id="style-strength" title="Lock field">🔒</button>
+                            </label>
+                            <input type="range" id="style-strength" min="0" max="1000" value="250" class="slider">
+                        </div>
+                    </div>
+                </main>
+
+                <section class="result-section">
+                    <h2>Your Final Prompt ✨</h2>
+                    <div class="prompt-output-wrapper">
+                        <textarea id="final-prompt" readonly>Your generated prompt will appear here.</textarea>
+                    </div>
+                    <div class="action-buttons">
+                        <button id="randomize-button" class="glass-button secondary">🎲 Surprise Me!</button>
+                        <button id="save-button" class="glass-button">💾 Save Prompt</button>
+                        <button id="copy-button" class="glass-button">
+                            <span class="button-text">Copy Prompt</span>
+                        </button>
+                        <button id="clear-button" class="glass-button secondary">🗑️ Clear</button>
+                        <button id="variants-button" class="glass-button secondary">✨ Generate Variants</button>
+                    </div>
+                </section>
+
+                <section id="variants-section" class="saved-prompts-container">
+                    <h2>Prompt Variants</h2>
+                    <ul id="variants-list"></ul>
+                </section>
+            </div>
+
+            <aside class="visual-inspiration">
+                <h2>Inspiration Board</h2>
+                <div id="image-board">
+                    <p class="image-board-placeholder">
+                        Type a subject to see inspirational images here...
+                    </p>
+                </div>
+            </aside>
+        </div>
+
+        <section id="saved-prompts-section" class="saved-prompts-container">
+            <h2>Saved Library</h2>
+            <ul id="saved-prompts-list"></ul>
+        </section>
+    </div>
+
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>
