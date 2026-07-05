@@ -1,10 +1,10 @@
-// js/main.js
+// public/main.js
 
-import { generatePrompt, getCurrentFormValues, setFormValues } from './promptGenerator.js';
-import { getSavedPrompts, addPrompt, deletePrompt } from './storage.js';
-import { debounce, fetchImages } from './imageService.js';
-import { handleLockClick, randomizePrompt, clearForm } from './uiState.js';
-import { generatePromptVariants } from './promptVariants.js';
+import { generatePrompt, getCurrentFormValues, setFormValues } from '../js/promptGenerator.js';
+import { getSavedPrompts, addPrompt, deletePrompt } from '../js/storage.js';
+import { debounce, fetchImages } from '../js/imageService.js';
+import { handleLockClick, randomizePrompt, clearForm } from '../js/uiState.js';
+import { generatePromptVariants } from '../js/promptVariants.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     const allInputs = document.querySelectorAll('input, select');
@@ -23,7 +23,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const variantsList = document.getElementById('variants-list');
 
     const debouncedFetch = debounce((keyword) => fetchImages(keyword, imageBoard));
-
     const generatePromptWrapper = () => generatePrompt(finalPromptTextarea);
 
     const renderSavedPrompts = () => {
@@ -51,23 +50,14 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const handleSavePrompt = () => {
-        console.log("1. 'Save Prompt' button clicked.");
-
         const fullPrompt = generatePromptWrapper();
-        if (!fullPrompt || fullPrompt.startsWith('Your generated prompt')) {
-            console.error("2. Save aborted: Prompt is empty or default.");
-            return;
-        }
-        console.log("2. Generated prompt to save:", fullPrompt);
+        if (!fullPrompt || fullPrompt.startsWith('Your generated prompt')) return;
 
         const promptData = getCurrentFormValues();
         promptData.fullPrompt = fullPrompt;
 
-        const prompts = addPrompt(promptData);
-        console.log("4. Prompt saved to localStorage. Total prompts:", prompts.length);
-
+        addPrompt(promptData);
         renderSavedPrompts();
-        console.log("5. UI has been updated.");
     };
 
     const handleLoadPrompt = (index) => {
@@ -108,59 +98,36 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
             variantsList.appendChild(li);
 
-            const copyBtn = li.querySelector('.copy-variant');
-            copyBtn.addEventListener('click', () => {
+            li.querySelector('.copy-variant').addEventListener('click', () => {
                 navigator.clipboard.writeText(v.prompt);
             });
         });
     };
 
     // Event listeners
-    allInputs.forEach(input =>
-        input.addEventListener('input', generatePromptWrapper)
-    );
-
-    subjectInput.addEventListener('input', () =>
-        debouncedFetch(subjectInput.value)
-    );
-
-    styleSlider.addEventListener('input', (e) =>
-        (styleValueDisplay.textContent = e.target.value)
-    );
-
+    allInputs.forEach(input => input.addEventListener('input', generatePromptWrapper));
+    subjectInput.addEventListener('input', () => debouncedFetch(subjectInput.value));
+    styleSlider.addEventListener('input', (e) => (styleValueDisplay.textContent = e.target.value));
     formGrid.addEventListener('click', handleLockClick);
 
     savedPromptsList.addEventListener('click', (e) => {
         const target = e.target.closest('button');
         if (!target) return;
-
         const index = parseInt(target.dataset.index, 10);
         if (target.classList.contains('load-btn')) handleLoadPrompt(index);
         if (target.classList.contains('delete-btn')) handleDeletePrompt(index);
     });
 
     saveButton.addEventListener('click', handleSavePrompt);
-
     randomizeButton.addEventListener('click', () =>
-        randomizePrompt(
-            allInputs,
-            formGrid,
-            styleSlider,
-            styleValueDisplay,
-            generatePromptWrapper,
-            debouncedFetch,
-            subjectInput
-        )
+        randomizePrompt(allInputs, formGrid, styleSlider, styleValueDisplay, generatePromptWrapper, debouncedFetch, subjectInput)
     );
-
     clearButton.addEventListener('click', () =>
         clearForm(allInputs, styleValueDisplay, generatePromptWrapper, debouncedFetch)
     );
-
     copyButton.addEventListener('click', () => {
         const buttonText = copyButton.querySelector('.button-text');
-        if (finalPromptTextarea.value &&
-            finalPromptTextarea.value !== "Your generated prompt will appear here.") {
+        if (finalPromptTextarea.value && finalPromptTextarea.value !== "Your generated prompt will appear here.") {
             navigator.clipboard.writeText(finalPromptTextarea.value).then(() => {
                 buttonText.textContent = 'Copied! ✅';
                 copyButton.style.background = 'rgba(76, 175, 80, 0.3)';
@@ -171,7 +138,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     });
-
     variantsButton.addEventListener('click', renderVariants);
 
     // Initial calls
